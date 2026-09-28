@@ -12,7 +12,7 @@ def main():
     drawable = pygame.sprite.Group()
     BowlingBall.containers = (updatable, drawable)
 
-    ball = BowlingBall(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    ball = BowlingBall(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 1.1)
 
     while True:
         for event in pygame.event.get():
