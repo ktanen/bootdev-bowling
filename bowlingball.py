@@ -5,10 +5,10 @@ from constants import BALL_RADIUS, LINE_WIDTH, BOWLER_SPEED
 class BowlingBall(CircleShape):
     def __init__(self, x, y):
         super().__init__(x, y, BALL_RADIUS)
-
+        self.rect = pygame.Rect((self.position.x, self.position.y, BALL_RADIUS, BALL_RADIUS))
     def draw(self, screen):
-        pygame.draw.circle(screen, "white", self.position, self.radius, LINE_WIDTH)
-
+        pygame.draw.circle(screen, "blue", self.position, self.radius)
+        
     def move(self, dt):
         unit_vector = pygame.Vector2(0,1)
         rotated_vector = unit_vector.rotate(-90)
