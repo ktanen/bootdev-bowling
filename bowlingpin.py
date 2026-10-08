@@ -15,4 +15,3 @@ class BowlingPin(pygame.sprite.Sprite):
     def draw(self, screen: pygame.Surface):
         pygame.draw.rect(screen, "white", self.rect)
         
-
