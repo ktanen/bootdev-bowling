@@ -17,7 +17,7 @@ def main():
     drawable = pygame.sprite.Group()
     ball = BowlingBall(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 1.1)
     pin = BowlingPin(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-    ballsprite = pygame.sprite.RenderPlain(ball)
+    
     BowlingBall.containers = (updatable, drawable)
     BowlingPin.containers = (drawable)
     screen.blit(background, (0, 0))
@@ -34,11 +34,11 @@ def main():
         
         screen.blit(background, (0, 0))
 
-        
+        screen.blit(background, ball.rect, ball.rect)
 
             
         
-        ballsprite.update(dt)
+        ball.update(dt)
 
         
         ball.draw(screen)
