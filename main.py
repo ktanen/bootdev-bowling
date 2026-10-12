@@ -21,7 +21,7 @@ def main():
     BowlingBall.containers = (updatable, drawable)
     BowlingPin.containers = (drawable)
 
-    ball.add(drawable)
+    ball.add(drawable, updatable)
     pin.add(drawable)
 
     screen.blit(background, (0, 0))
@@ -41,7 +41,7 @@ def main():
 
             
         
-        ball.update(dt)
+        updatable.update(dt)
 
      
         
