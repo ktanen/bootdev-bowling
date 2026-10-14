@@ -11,7 +11,9 @@ class BowlingPin(pygame.sprite.Sprite):
         self.width = PIN_WIDTH
         self.height = PIN_HEIGHT
         self.rect = pygame.Rect((self.position.x, self.position.y, self.width, self.height))
-
+        self.image = pygame.surface.Surface((self.width, self.height))
     def draw(self, screen: pygame.Surface):
+        
         pygame.draw.rect(screen, "white", self.rect)
+
         

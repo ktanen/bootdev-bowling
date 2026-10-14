@@ -1,8 +1,9 @@
 import pygame
 import math
 from circleshape import CircleShape
-from constants import BALL_RADIUS, BOWLER_SPEED, BALL_SPEED, ROLL_COOLDOWN_SECONDS
+from constants import BALL_RADIUS, BOWLER_SPEED, BALL_SPEED, ROLL_COOLDOWN_SECONDS, SCREEN_WIDTH, SCREEN_HEIGHT
 from bowlingpin import BowlingPin
+
 class BowlingBall(CircleShape):
     def __init__(self, x, y):
         super().__init__(x, y, BALL_RADIUS)
@@ -10,11 +11,13 @@ class BowlingBall(CircleShape):
         self.rect = pygame.Rect((self.position.x, self.position.y, BALL_RADIUS, BALL_RADIUS))
         self.roll_cooldown_timer = 0
         self.roll_initiated = False
+        self.image = pygame.surface.Surface((BALL_RADIUS, BALL_RADIUS))
 
 
         
 
     def draw(self, screen):
+        
         pygame.draw.circle(screen, "blue", self.position, self.radius)
         
     def move(self, dt):
@@ -22,7 +25,7 @@ class BowlingBall(CircleShape):
         rotated_vector = unit_vector.rotate(-90)
         player_with_speed_vector = rotated_vector * BOWLER_SPEED * dt
         self.position += player_with_speed_vector
-
+        self.rect.move_ip(player_with_speed_vector)
 
     def update(self, dt):
         keys = pygame.key.get_pressed()
@@ -37,7 +40,8 @@ class BowlingBall(CircleShape):
                 self.roll()
         if self.roll_initiated:
             self.do_roll_update(dt)
-        
+
+      
             
 
         self.roll_cooldown_timer -= dt
@@ -56,12 +60,15 @@ class BowlingBall(CircleShape):
         scaled_vector = rotated_vector * BALL_SPEED * dt
         if BALL_RADIUS + self.position.y >= 0:
             self.position.y += scaled_vector.y
+            self.rect.move_ip(0, scaled_vector.y)
         else:
             self.roll_initiated = False
             self.position.update(self.starting_position)
+            self.rect.clamp_ip(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 1.1, BALL_RADIUS, BALL_RADIUS)
             
 
     def calcnewpos(self,rect,vector):
         (angle,z) = vector
         (dx,dy) = (z*math.cos(angle),z*math.sin(angle))
         return rect.move(dx,dy)
+
