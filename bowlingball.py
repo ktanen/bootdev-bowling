@@ -26,7 +26,7 @@ class BowlingBall(CircleShape):
         player_with_speed_vector = rotated_vector * BOWLER_SPEED * dt
         self.position += player_with_speed_vector
         self.rect.move_ip(player_with_speed_vector)
-
+        self.velocity += player_with_speed_vector
     def update(self, dt):
         keys = pygame.key.get_pressed()
 
@@ -60,12 +60,17 @@ class BowlingBall(CircleShape):
         scaled_vector = rotated_vector * BALL_SPEED * dt
         if BALL_RADIUS + self.position.y >= 0:
             self.position.y += scaled_vector.y
+            self.velocity.y = rotated_vector.y * BALL_SPEED
             self.rect.move_ip(0, scaled_vector.y)
+            
+            #self.rect.topleft = (int(self.position.x), int(self.position.y))
         else:
             self.roll_initiated = False
             self.position.update(self.starting_position)
-            self.rect.clamp_ip(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 1.1, BALL_RADIUS, BALL_RADIUS)
-            
+            self.rect.topleft = self.position
+            self.rect.clamp_ip(int(SCREEN_WIDTH / 2), int(SCREEN_HEIGHT / 1.1), BALL_RADIUS, BALL_RADIUS)
+            #self.position = pygame.Vector2(self.rect.topleft)
+            self.velocity = pygame.Vector2(0, 0)
 
     def calcnewpos(self,rect,vector):
         (angle,z) = vector

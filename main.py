@@ -15,17 +15,17 @@ def main():
     # background.fill("burlywood1")
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
-    removable = pygame.sprite.Group()
     pins = pygame.sprite.Group()
     ball = BowlingBall(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 1.1)
-
     pin = BowlingPin(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5)
     
+    
+    
     BowlingBall.containers = (updatable, drawable)
-    BowlingPin.containers = (drawable, removable)
+    BowlingPin.containers = (drawable, updatable)
 
     ball.add(drawable, updatable)
-    pin.add(drawable, removable, pins)
+    
 
     screen.blit(background, (0, 0))
     pygame.display.flip()
@@ -42,8 +42,9 @@ def main():
 
         screen.blit(background, ball.rect, ball.rect)
 
-            
         
+        pin.add(drawable, updatable, pins)
+
         updatable.update(dt)
 
 
@@ -54,9 +55,13 @@ def main():
         offset_y = pin.rect.y - ball.rect.y
 
         if ball_mask.overlap(pin_mask, (offset_x, offset_y)):
-            print("Collision detected")
+            pin.was_hit = True
+            pin.velocity += ball.velocity
             
-     
+        
+            
+
+        
         
 
 
