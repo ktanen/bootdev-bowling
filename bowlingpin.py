@@ -39,7 +39,7 @@ class BowlingPin(pygame.sprite.Sprite):
             self.was_hit = False
             self.position.update(self.starting_position)
             self.rect.topleft = (int(self.starting_position.x), int(self.starting_position.y)) #self.position
-            self.rect.clamp_ip(int(SCREEN_WIDTH / 2), int(SCREEN_HEIGHT / 5), PIN_WIDTH, PIN_HEIGHT)
+            self.rect.clamp_ip(int(SCREEN_WIDTH / 2.01), int(SCREEN_HEIGHT / 6.5), PIN_WIDTH, PIN_HEIGHT)
             self.position = pygame.Vector2(self.rect.topleft)
             self.velocity = pygame.Vector2(0, 0)
 

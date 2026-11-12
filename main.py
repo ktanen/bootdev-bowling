@@ -1,7 +1,12 @@
+import os
+os.environ["SDL_AUDIODRIVER"] = "dummy"
+
 import pygame
+import math
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, BALL_SPEED
 from bowlingball import BowlingBall
 from bowlingpin import BowlingPin
+from pindeck import PinDeck
 
 def main():
     pygame.init()
@@ -17,15 +22,16 @@ def main():
     drawable = pygame.sprite.Group()
     pins = pygame.sprite.Group()
     ball = BowlingBall(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 1.1)
-    pin = BowlingPin(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5)
+    pin_deck =  PinDeck(SCREEN_WIDTH / 2, SCREEN_HEIGHT * 0.1)
+    pin = BowlingPin(SCREEN_WIDTH / 2.01, SCREEN_HEIGHT / 6.5)
     
-    
-    
+
     BowlingBall.containers = (updatable, drawable)
     BowlingPin.containers = (drawable, updatable)
+    PinDeck.containers = (drawable)
 
     ball.add(drawable, updatable)
-    
+    pin_deck.add(drawable)
 
     screen.blit(background, (0, 0))
     pygame.display.flip()
