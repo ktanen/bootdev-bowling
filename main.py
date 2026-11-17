@@ -11,7 +11,7 @@ HEADPIN_STARTING_X_POS, HEADPIN_STARTING_Y_POS
 from bowlingball import BowlingBall
 from bowlingpin import BowlingPin
 from pindeck import PinDeck
-
+from collision_detection import collision
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -64,7 +64,13 @@ def main():
         offset_x = pin.rect.x - ball.rect.x
         offset_y = pin.rect.y - ball.rect.y
 
-        if ball_mask.overlap(pin_mask, (offset_x, offset_y)):
+        rleft = pin.rect.left
+        rtop = pin.rect.top
+        
+
+        # if ball_mask.overlap(pin_mask, (offset_x, offset_y)):
+        if collision(rleft, rtop, pin.width, pin.height, ball.position.x,
+                     ball.position.y, ball.radius):
             pin.was_hit = True
             pin.velocity += ball.velocity
             

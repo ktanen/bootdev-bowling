@@ -12,6 +12,7 @@ class BowlingBall(CircleShape):
         self.roll_cooldown_timer = 0
         self.roll_initiated = False
         self.image = pygame.surface.Surface((BALL_RADIUS, BALL_RADIUS))
+        self.radius = BALL_RADIUS
 
 
         
