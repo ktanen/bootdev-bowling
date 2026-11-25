@@ -6,7 +6,8 @@ import math
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, \
 BALL_STARTING_X_POS, BALL_STARTING_Y_POS, \
 PIN_DECK_STARTING_X_POS, PIN_DECK_STARTING_Y_POS, \
-HEADPIN_STARTING_X_POS, HEADPIN_STARTING_Y_POS
+HEADPIN_STARTING_X_POS, HEADPIN_STARTING_Y_POS, \
+BALL_SPEED
 
 from bowlingball import BowlingBall
 from bowlingpin import BowlingPin
@@ -66,13 +67,25 @@ def main():
 
         rleft = pin.rect.left
         rtop = pin.rect.top
-        
-
+        left_of_ball = ball.rect.left
+        right_of_ball = ball.rect.right
+        left_of_pin = rleft
+        right_of_pin = pin.rect.right
         # if ball_mask.overlap(pin_mask, (offset_x, offset_y)):
         if collision(rleft, rtop, pin.width, pin.height, ball.position.x,
                      ball.position.y, ball.radius):
             pin.was_hit = True
-            pin.velocity += ball.velocity
+            
+            direction = pin.position - ball.position
+
+            if direction.length() < 0:
+                direction = direction.normalize()
+            else:
+                direction = pygame.math.Vector2(0, -1)
+
+            pin.velocity = direction * BALL_SPEED
+
+            # pin.velocity += ball.velocity
             
         
             
